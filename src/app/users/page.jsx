@@ -1,8 +1,33 @@
-import Link from "next/link"
-import { Input } from "../../components/ui/input"
-import { Button } from "../../components/ui/button"
+'use client';
+import Link from "next/link";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
+import { signUpAction } from "../../store/action";
 
 export default function Component2() {
+
+  const dispatch = useDispatch();
+  const emailRef = useRef(null);
+  const onSubmit = async (authData) => {
+      await dispatch(signUpAction(authData))
+      console.log('Registration is done:', authData);
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (emailRef.current !== null ){
+      onSubmit({
+        email: emailRef.current.value,
+        name: "Maksim", //заглушка
+        password: "Maksim1510" //заглушка
+      });
+    }
+    emailRef.current.value = null;
+  };
+
+
   return (
     (<div className="flex flex-col min-h-dvh">
       <header
@@ -146,7 +171,7 @@ export default function Component2() {
             </div>
           </div>
         </section>
-        <section id="get-started" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div
             className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
@@ -157,8 +182,13 @@ export default function Component2() {
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
-              <form className="flex gap-2">
-                <Input type="email" placeholder="Enter your email" className="max-w-lg flex-1" />
+            {/* {errorMessage && (
+                <div className="p-4 mb-4 text-red-700 bg-red-100 border border-red-400 rounded">
+                  {errorMessage} </div>
+              )} */}
+              <form className="flex gap-2" onSubmit={handleSubmit} id="get-started">
+                <Input type="email" placeholder="Enter your email" className="max-w-lg flex-1"
+                     ref={emailRef} required/>
                 <Button type="submit">Sign Up</Button>
               </form>
               <p className="text-xs text-muted-foreground">

@@ -5,12 +5,19 @@ import { Button } from "../../components/ui/button"
 import { Label } from "../../components/ui/label"
 import { Input } from "../../components/ui/input"
 import { useRouter } from "next/navigation"
+import useMediaUpload from "../../hooks/useMediaUpload"
 
-export default function Component1() {
-
-const router = useRouter();
+export default function Main() {
+  const router = useRouter();
+  const {file,
+    errorMessage,
+    loading,
+    handleFileChange,
+    handleSubmit
+  } = useMediaUpload();
 const handleSignUpClick = () => {
-  router.push("/transcribe/#get-started")
+  router.push("/users/#get-started")
+
 }
   return (
     (<div className="flex flex-col min-h-dvh">
@@ -56,7 +63,7 @@ const handleSignUpClick = () => {
                 </p>
                 <div className="space-x-4 mt-6">
                   <Link
-                    href="/transcribe"
+                    href="/users"
                     className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}>
                     Try it now
@@ -263,11 +270,19 @@ const handleSignUpClick = () => {
               </p>
             </div>
             <div className="flex flex-col gap-4">
+              {errorMessage && (
+                <div className="p-4 mb-4 text-red-700 bg-red-100 border border-red-400 rounded">
+                  {errorMessage} </div>
+              )}
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="video">Upload Video</Label>
-                <Input id="video" type="file" />
+                <Input id="video" 
+                type="file"
+                onChange = {handleFileChange} />
               </div>
-              <Button>Transcribe Video</Button>
+              <Button disabled={loading}
+              onClick = {handleSubmit}
+              >{loading? 'Uploading...' : 'Transcribe Video'}</Button>
             </div>
           </div>
         </section>

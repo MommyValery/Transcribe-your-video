@@ -1,12 +1,19 @@
-
+'use client'
 import Link from "next/link"
 import { Button } from "../../components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../../components/ui/card"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../components/ui/select"
 import { Progress } from "../../components/ui/progress"
 import { ScrollArea } from "../../components/ui/scroll-area"
+import { FileUploader } from "../../components/ui/file-upload"
+import { useRouter } from "next/navigation"
 
 export default function UploadVideo() {
+  const router = useRouter();
+  const handleLogoutClick = () => {
+    router.push("/main")
+  }
+
   return (
     (<div className="flex flex-col h-full w-full bg-background">
       <header className="bg-card py-4 px-6 flex items-center justify-between shadow">
@@ -27,7 +34,7 @@ export default function UploadVideo() {
             prefetch={false}>
             Account
           </Link>
-          <Button variant="secondary">Logout</Button>
+          <Button variant="secondary" onClick={handleLogoutClick}>Logout</Button>
         </nav>
       </header>
       <main className="flex-1 p-8">
@@ -39,13 +46,7 @@ export default function UploadVideo() {
             </CardHeader>
             <CardContent>
               <form className="flex flex-col items-center justify-center gap-4">
-                <div>
-                  <div
-                    className="flex flex-col items-center justify-center gap-2 p-8 border-2 border-dashed border-muted rounded-md">
-                    <UploadIcon className="w-8 h-8 text-muted-foreground" />
-                    <p className="text-muted-foreground">Drag and drop a video file or click to select.</p>
-                  </div>
-                </div>
+                  <FileUploader />
                 <Select>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select language" />
@@ -194,28 +195,6 @@ function LanguagesIcon(props) {
     </svg>)
   );
 }
-
-
-function UploadIcon(props) {
-  return (
-    (<svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="17 8 12 3 7 8" />
-      <line x1="12" x2="12" y1="3" y2="15" />
-    </svg>)
-  );
-}
-
 
 function XIcon(props) {
   return (

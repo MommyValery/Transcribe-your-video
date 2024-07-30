@@ -1,11 +1,13 @@
+
 import RootLayout from './layout';
-import { Component2 } from './transcribe/page';
-import Component1 from './main/page';
+import Main from './main/page';
+import UploadVideo from './upload/page';
+import Component2 from './users/page';
 
 const Home = () => {
   return (
     <RootLayout>
-      <Component1/>
+      <Main/>
     </RootLayout>
   );
 };
