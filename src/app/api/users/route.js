@@ -1,5 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import cors from 'cors';
+
 import { signUpAction } from '../../../store/action';
 import { getToken } from '../../../utils/token';
 

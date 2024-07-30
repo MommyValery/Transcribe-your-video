@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, StoreSlice } from '../../const';
-import { fetchUserStatus, loginAction, signUpAction, logoutAction } from '../action';
+import { loginAction, signUpAction, logoutAction } from '../action';
 
 const initialState = {
-  authStatus: AuthorizationStatus.No_Auth,
+  authStatus: AuthorizationStatus.Auth,
   user: '',
 };
 

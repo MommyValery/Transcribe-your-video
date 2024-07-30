@@ -10,31 +10,52 @@ const useMediaUpload = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [file, setFile] = useState(null);
+  const [fileEnter, setFileEnter] = useState(false);
   const dispatch = useDispatch();
   const loading = useSelector(getLoading);
   const success = useSelector(getSuccess);
   const error = useSelector(getError);
-  const handleFileChange = (evt) => {
-    setFile(evt.target.files[0]);
+  
+  const validateFile = (file) => {
+    if (!validTypes.includes(file.type)) {
+      return 'Invalid file type.';
+     }
+     if (file.size > maxSizeInBytes) {
+      return 'File size exceeds 50MB limit.';
+     }
+     if (!file) {
+      return 'Please choose the file.';
+    }
+     return null;
+  }
+
+  const handleFileChange = (file) => {
     setErrorMessage('');
+    setFile(null);
+    const validationError = validateFile(file);
+    if (validationError) {
+      setErrorMessage(validationError);
+      return;
+    }
+    let blobURL = URL.createObjectURL(file);
+    setFile(blobURL);
+    dispatch(uploadMedia(file))
   };
 
 
-  const handleSubmit = (evt) => {
+  const handleDrop = (evt) => {
     evt.preventDefault();
-    if (!file) {
-      setErrorMessage('Please choose the file.');
-      return;
+    setFileEnter(false);
+    if (evt.dataTransfer.items) {
+      [...evt.dataTransfer.items].forEach((item) => {
+          if (item.kind === 'file') {
+              const droppedFile = item.getAsFile();
+              if (droppedFile) {
+                  handleFileChange(droppedFile);
+              }
+          }
+      })
     }
-    if (!validTypes.includes(file.type)) {
-      setErrorMessage('Invalid file type.');
-      return;
-     }
-     if (file.size > maxSizeInBytes) {
-      setErrorMessage('File size exceeds 50MB limit.');
-      return;
-     }
-      dispatch(uploadMedia(file));
   };
 
   useEffect (() => {
@@ -49,10 +70,12 @@ const useMediaUpload = () => {
   
   return {
     file,
+    fileEnter,
+    setFileEnter,
     errorMessage,
     loading,
     handleFileChange,
-    handleSubmit
+    handleDrop
   }
 };
 

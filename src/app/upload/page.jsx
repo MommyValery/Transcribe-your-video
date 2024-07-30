@@ -7,11 +7,15 @@ import { Progress } from "../../components/ui/progress"
 import { ScrollArea } from "../../components/ui/scroll-area"
 import { FileUploader } from "../../components/ui/file-upload"
 import { useRouter } from "next/navigation"
+import { useDispatch } from "react-redux"
+import { logoutAction } from "../../store/action"
 
 export default function UploadVideo() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const handleLogoutClick = () => {
-    router.push("/main")
+    dispatch(logoutAction);
+    router.push("/main");
   }
 
   return (

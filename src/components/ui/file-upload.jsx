@@ -1,15 +1,15 @@
 'use client'
-import { useState } from "react"
 import { Input } from "./input"
 import { Label } from "./label"
+import useMediaUpload from "../../hooks/useMediaUpload"
 
 export const FileUploader = () => {
-    const [file, setFile] = useState(null);
-    const [fileEnter, setFileEnter] = useState(false);
+  const {file, setFileEnter, fileEnter, errorMessage, handleFileChange, handleDrop} = useMediaUpload();
 
    return (<div>
     {!file ?
-    (<div className="flex flex-col items-center justify-center gap-2 p-8 border-2 border-dashed border-muted rounded-md"
+    (<div className={`flex flex-col items-center justify-center gap-2 p-8 border-2 border-dashed rounded-md
+        ${fileEnter ? 'border-blue-500' : 'border-muted'}`}
        onDragOver={(evt)=> {
         evt.preventDefault();
         setFileEnter(true);
@@ -18,44 +18,20 @@ export const FileUploader = () => {
     }} onDragEnd={(evt) => {
         evt.preventDefault();
         setFileEnter(false);
-    }} onDrop = {(evt) => {
-        evt.preventDefault();
-        setFileEnter(false);
-        if (evt.dataTransfer.items) {
-            [...evt.dataTransfer.items].forEach((item, i) => {
-                if (item.kind === 'file') {
-                    const file = item.getAsFile();
-                    if (file) {
-                        let blobURL = URL.createObjectURL(file);
-                        setFile(blobURL);
-                    }
-                    console.log(`items file[${i}].name = ${file?.name}`);
-                }
-            });
-        } else {
-            [...evt.dataTransfer.files].forEach((file, i) => {
-                console.log(`...file[${i}].name = ${file.name}`);
-            });
-        }
-    }}> 
+    }} onDrop = {handleDrop}
+    > 
     <UploadIcon className="w-8 h-8 text-muted-foreground" />   
     <Label htmlFor="video" className="text-muted-foreground">Drag and drop a video file or click to select.</Label>
-    <Input id="video" type="file" className="hidden" onChange={(evt) => {
-        console.log(evt.target.files);
-        let files = evt.target.files;
-        if (files && files[0]) {
-            let blobURL = URL.createObjectURL(files[0]);
-            setFile(blobURL);
-        }
-      }}/>
+    <Input id="video" type="file" className="hidden" onChange={(evt) => handleFileChange(evt.target.files[0])}/>
     </div>
     ) : (
         <div className="flex flex-col items-center justify-center gap-2 p-8 border-2 border-dashed border-muted rounded-md">
-            <object className="w-40 h-40 text-muted-foreground" data={file} type="image/png"/>
+            <object className="w-40 h-40 text-muted-foreground" data={file} type="video/mp4"/>
         </div>
     )}
-    </div>)
-    }
+    {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+    </div>);
+    };
 
 function UploadIcon(props) {
     return (

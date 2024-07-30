@@ -2,17 +2,22 @@
 import Link from "next/link";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useRef, useState } from "react";
 import { signUpAction } from "../../store/action";
 
-export default function Component2() {
+export default function Users() {
 
   const dispatch = useDispatch();
   const emailRef = useRef(null);
+  const [message, setMessage] = useState('');
   const onSubmit = async (authData) => {
-      await dispatch(signUpAction(authData))
-      console.log('Registration is done:', authData);
+     try {
+      await dispatch(signUpAction(authData));
+      setMessage('You have signed up');
+     } catch (error) {
+      setMessage('Something went wrong');
+     }
   };
 
   const handleSubmit = (evt) => {
@@ -182,15 +187,14 @@ export default function Component2() {
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
-            {/* {errorMessage && (
-                <div className="p-4 mb-4 text-red-700 bg-red-100 border border-red-400 rounded">
-                  {errorMessage} </div>
-              )} */}
               <form className="flex gap-2" onSubmit={handleSubmit} id="get-started">
                 <Input type="email" placeholder="Enter your email" className="max-w-lg flex-1"
                      ref={emailRef} required/>
                 <Button type="submit">Sign Up</Button>
               </form>
+              {message && (
+                <p className={`text-xs ${message === "You have signed up" ? "text-green-500" : "text-red-500"}`}>{message}</p>
+              )}
               <p className="text-xs text-muted-foreground">
                 Sign up to get started. By signing up, you agree to our{" "}
                 <Link href="#" className="underline underline-offset-2" prefetch={false}>

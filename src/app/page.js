@@ -2,7 +2,7 @@
 import RootLayout from './layout';
 import Main from './main/page';
 import UploadVideo from './upload/page';
-import Component2 from './users/page';
+import Users from './users/page';
 
 const Home = () => {
   return (

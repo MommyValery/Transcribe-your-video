@@ -11,13 +11,8 @@ const initialState = {
 export const uploadMediaSlice = createSlice({
   name: StoreSlice.Upload,
   initialState,
-  reducers: {
-  //   resetState: (state) => {
-  //   state.loading = false;
-  //   state.error = null;
-  //   state.success = false;
-  // },
-},
+  reducers: {}
+  ,
   extraReducers(builder) {
     builder
       .addCase(uploadMedia.pending, (state, action) => {
@@ -36,5 +31,4 @@ export const uploadMediaSlice = createSlice({
   }
 });
 
-// export const {resetState} = mediaSlice.actions;
 

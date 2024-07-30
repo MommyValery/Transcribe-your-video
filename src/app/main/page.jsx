@@ -15,10 +15,11 @@ export default function Main() {
     handleFileChange,
     handleSubmit
   } = useMediaUpload();
+
 const handleSignUpClick = () => {
   router.push("/users/#get-started")
-
 }
+
   return (
     (<div className="flex flex-col min-h-dvh">
       <header className="px-4 lg:px-6 h-14 flex items-center">
