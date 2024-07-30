@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Техническое задание для разработки приложения на React
 
-## Getting Started
+Описание проекта
+Требуется разработать приложение для загрузки видео и аудиофайлов.
 
-First, run the development server:
+Функциональные требования
+1. Регистрация и авторизация пользователя
+   - Регистрация и вход пользователей через email.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Загрузка файлов
+   - Возможность загрузки видео и аудиофайлов размером до 50 МБ.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Инструменты и ресурсы
+1. API
+   - Использовать заглушку API из Postman. 
+   - Скачать коллекцию Postman по https://api.postman.com/collections/25424511-be45e35c-cd69-4391-94f0-1974884dc480?access_key=PMAT-01J3J090VVZ1SVCV65ST3K8NTF 
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. Дизайн
+   - Использовать сгенерированный дизайн с [этого ресурса](https://v0.dev/t/14YPoELiXnt).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Технические требования
+- Реализация на основе библиотеки React.
+- Применение современных подходов к разработке (hooks, функциональные компоненты).
+- Использование стилей и компонентов согласно предоставленному дизайну.
+- Интеграция с API Postman для работы с данными (регистрация, авторизация, загрузка файлов).
 
-## Learn More
+Дополнительные рекомендации
+- Уделить внимание удобству пользовательского интерфейса.
+- Обеспечить проверку размера загружаемых файлов до начала загрузки.
+- Обработать возможные ошибки при регистрации, авторизации и загрузке файлов, информируя пользователя о проблемах.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Итог
+На выходе необходимо получить приложение, реализующее функционал регистрации, авторизации и загрузки файлов, с использованием заглушек API из Postman и соответствующее предоставленному дизайну и выгружен на github. 
