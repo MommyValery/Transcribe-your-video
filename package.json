@@ -1,12 +1,15 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "homepage": "https://mommyvalery.github.io/Typing-test-app",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
@@ -35,6 +38,7 @@
     "@types/react": "18.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "gh-pages": "^6.1.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
   }
